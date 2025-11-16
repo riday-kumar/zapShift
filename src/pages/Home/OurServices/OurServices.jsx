@@ -1,12 +1,12 @@
 import React from "react";
-import service from "../../../assets/service.png";
+
 import ServiceOne from "./ServiceOne";
 
 const OurServices = () => {
   return (
-    <div className="bg-secondary p-10">
+    <div className="bg-secondary px-10 py-20 rounded-lg">
       {/* heading */}
-      <div className="mb-5">
+      <div className="mb-10">
         <p className="text-[40px] text-center font-extrabold text-white">
           Our Services
         </p>
@@ -18,15 +18,12 @@ const OurServices = () => {
       </div>
       {/* services */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
-        <ServiceOne heading="Express and Standard  Delivery">
-          Express and kiop
-        </ServiceOne>
-        <ServiceOne heading="Express and Standard  Delivery">
-          Express and kiop
-        </ServiceOne>
-        <ServiceOne heading="Express and Standard  Delivery">
-          Express and kiop
-        </ServiceOne>
+        <ServiceOne heading="Express & Standard Delivery"></ServiceOne>
+        <ServiceOne heading="Nationwide  Delivery"></ServiceOne>
+        <ServiceOne heading="Fulfillment Solution"></ServiceOne>
+        <ServiceOne heading="Cash On Home  Delivery"></ServiceOne>
+        <ServiceOne heading="Corporate Service"></ServiceOne>
+        <ServiceOne heading="Parcel Return"></ServiceOne>
       </div>
     </div>
   );
