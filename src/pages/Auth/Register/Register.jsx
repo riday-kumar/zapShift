@@ -4,9 +4,12 @@ import useAuth from "../../../hooks/useAuth";
 import { toast } from "react-toastify";
 import SocialLogIn from "../SocialLogIn/SocialLogIn";
 import axios from "axios";
+import { Link, useLocation, useNavigate } from "react-router";
 
 const Register = () => {
   const { registerUser, updateUserProfile } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -43,6 +46,7 @@ const Register = () => {
           updateUserProfile(userProfile)
             .then(() => {
               console.log("user profile updated done");
+              navigate(location.state || "/");
             })
             .catch((err) => console.log(err));
         });
@@ -105,6 +109,12 @@ const Register = () => {
           )}
           <button className="btn btn-neutral mt-4">Register</button>
         </fieldset>
+        <p className="text-center my-2">
+          Already Have an Account{" "}
+          <Link className="text-blue-400 underline" state={location.state}>
+            Login
+          </Link>
+        </p>
       </form>
       <SocialLogIn></SocialLogIn>
     </div>

@@ -28,11 +28,22 @@ const NavBar = () => {
         <NavLink to="/coverage">Coverage</NavLink>
       </li>
       <li>
+        <NavLink to="/send-parcel">Send parcel</NavLink>
+      </li>
+      <li>
         <NavLink to="/register">Register</NavLink>
       </li>
       <li>
         <NavLink to="/login">Login</NavLink>
       </li>
+
+      {currentUser && (
+        <>
+          <li>
+            <NavLink to="/dashboard/my-parcels">My Parcels</NavLink>
+          </li>
+        </>
+      )}
     </>
   );
   return (
@@ -63,9 +74,9 @@ const NavBar = () => {
             {links}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">
+        <Link to="/" className="btn btn-ghost text-xl">
           <Logo></Logo>
-        </a>
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
@@ -80,7 +91,7 @@ const NavBar = () => {
             Log In
           </Link>
         )}
-        <Link to="/be-a-rider" className="btn btn-primary text-black mx-4">
+        <Link to="/rider" className="btn btn-primary text-black mx-4">
           Be a Rider
         </Link>
       </div>
