@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm, useWatch } from "react-hook-form";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
@@ -12,6 +12,8 @@ const SendParcel = () => {
     control,
     formState: { errors },
   } = useForm();
+
+  const navigate = useNavigate();
 
   const axiosSecure = useAxiosSecure();
   const { currentUser } = useAuth();
@@ -54,6 +56,8 @@ const SendParcel = () => {
       }
     }
 
+    data.cost = cost; // we have add cost to the data from we get the user
+
     Swal.fire({
       title: "Are you Agree with Our Cost?",
       text: `Your total price is ${cost}`,
@@ -61,19 +65,22 @@ const SendParcel = () => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, send my parcel",
+      confirmButtonText: "Confirm and Continue Payment",
     }).then((result) => {
       if (result.isConfirmed) {
         // save the parcel info to the database
         axiosSecure.post("/parcels", data).then((res) => {
           console.log(`after saving parcel data`, res.data);
+          if (res.data.insertedId) {
+            navigate("/dashboard/my-parcels");
+            Swal.fire({
+              icon: "success",
+              title: "Parcel has Created. Please Pay",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
         });
-
-        // Swal.fire({
-        //   title: "Agree",
-        //   text: "Your Order has been taken",
-        //   icon: "success",
-        // });
       }
     });
 
