@@ -2,6 +2,7 @@ import React from "react";
 import useAuth from "../../../hooks/useAuth";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const SocialLogIn = () => {
   const { googleLogIn } = useAuth();
@@ -9,11 +10,26 @@ const SocialLogIn = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const axiosSecure = useAxiosSecure();
+
   const handleGoogleLogIn = () => {
     googleLogIn()
       .then((res) => {
-        navigate(location.state || "/");
+        console.log(res.user);
+
         toast.success("Login Successful");
+
+        // create user in DataBase
+        const userInfo = {
+          email: res.user.email,
+          displayName: res.user.displayName,
+          photoURL: res.user.photoURL,
+        };
+
+        axiosSecure.post("/users", userInfo).then((res) => {
+          console.log("user data has been stored");
+          navigate(location.state || "/");
+        });
       })
       .catch((err) => console.log(err));
   };

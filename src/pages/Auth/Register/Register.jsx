@@ -5,11 +5,13 @@ import { toast } from "react-toastify";
 import SocialLogIn from "../SocialLogIn/SocialLogIn";
 import axios from "axios";
 import { Link, useLocation, useNavigate } from "react-router";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const Register = () => {
   const { registerUser, updateUserProfile } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
 
   const {
     register,
@@ -36,8 +38,19 @@ const Register = () => {
         }`;
 
         axios.post(image_Api_Url, formData).then((res) => {
-          // update user profile
+          // create user in the database
+          const userInfo = {
+            email: email,
+            displayName: data.displayName,
+            photoURL: res.data.data.url,
+          };
+          axiosSecure.post("/users", userInfo).then((res) => {
+            if (res.data.insertedId) {
+              console.log("user created in the data");
+            }
+          });
 
+          // update user profile to firebase
           const userProfile = {
             displayName: data.displayName,
             photoURL: res.data.data.url,
