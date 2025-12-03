@@ -64,6 +64,7 @@ const MyParcels = () => {
               <th>Cost</th>
               <th>Payment</th>
               <th>Delivery Status</th>
+              <th>Tracking Id</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -86,7 +87,8 @@ const MyParcels = () => {
                     </Link>
                   )}
                 </td>
-                <td>Done</td>
+                <td>{parcel?.deliveryStatus}</td>
+                <td>{parcel?.trackingId}</td>
                 <td className="space-x-2">
                   <button className="btn btn-square btn-sm btn-warning">
                     <FaEye />

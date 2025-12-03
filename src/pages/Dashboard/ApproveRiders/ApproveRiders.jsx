@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 
 const ApproveRiders = () => {
   const axiosSecure = useAxiosSecure();
+
   const { refetch, data: riders = [] } = useQuery({
     queryKey: ["riders", "pending"],
     queryFn: async () => {
@@ -64,6 +65,7 @@ const ApproveRiders = () => {
               <th>Rider Name</th>
               <th>Driving License</th>
               <th>Status</th>
+              <th>Work Status</th>
               <th>Rider Address</th>
               <th>Rider Email</th>
               <th>Rider Phone</th>
@@ -80,6 +82,7 @@ const ApproveRiders = () => {
                 <td>{rider.riderName}</td>
                 <td>{rider.drivingLicenseNum}</td>
                 <td>{rider.status}</td>
+                <td>{rider.workStatus}</td>
                 <td>{rider.riderAddress}</td>
                 <td>{rider.riderEmail}</td>
                 <td>{rider.riderPhone}</td>
